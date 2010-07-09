@@ -203,6 +203,7 @@ if there are not self-evaluating-p."
 	   ,@(getf parsed-body :doc)
 	   :initvals ',lambda-list-arg-values
 	   :icon ,(car (getf parsed-body :icon '(176)))
+	   :numouts ,(car (getf parsed-body :outputs '(1)))
 	   ,@(when (getf parsed-body :menu)
 		   (list :menuins
 			 (quote-for-5.1
