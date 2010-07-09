@@ -1,6 +1,6 @@
-;;; arch-tag: 153F21EC-B49A-465A-B293-D4FD6FD1B197
+;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; -*-
 
-;;; Copyright (c) 2007, Kilian Sprotte. All rights reserved.
+;;; Copyright (c) 2007 - 2010, Kilian Sprotte. All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions

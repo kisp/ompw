@@ -1,7 +1,6 @@
 ;;;; Silly emacs, this is -*- Lisp -*-
-;;;; arch-tag: 3AEA583B-0A11-1454-E9321DE74C68
 
-;;; Copyright (c) 2007, Kilian Sprotte. All rights reserved.
+;;; Copyright (c) 2007 - 2010, Kilian Sprotte. All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -31,12 +30,13 @@
 
 (defsystem :ompw
   :author "Kilian Sprotte"
-  :version "0.2.7"
+  :version "0.3.0"
   :serial t
   :components
   ((:static-file "README")
    (:static-file "TODO")
    (:static-file "ompw.asd")
+   (:static-file "ompw.lisp")
    (:static-file "load.lisp")
    (:file "package")
    (:file "menu")

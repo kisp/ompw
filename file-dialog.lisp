@@ -1,10 +1,10 @@
-;;; arch-tag: A0AFDB36-CC51-4C30-B39B-AA22D486776E
+;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; -*-
 
 ;;; By catalog, we mean here the ability of the target systems
 ;;; to display available interface functions (boxes) in menus
 ;;; OMPW's aim is to create those directly from the file content.
 
-;;; Copyright (c) 2007, Kilian Sprotte. All rights reserved.
+;;; Copyright (c) 2007 - 2010, Kilian Sprotte. All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
