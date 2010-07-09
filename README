@@ -2,6 +2,9 @@ OMPW provides an abstraction layer for writing Lisp libraries
 that can be used in "pure" Common Lisp, but also in the OpenMusic[1]
 or PWGL[2] environments.
 
+You can always download the latest version via the link:
+http://github.com/kisp/ompw/tarball/master
+
 It defines a macro DEFINE-BOX that expands differently
 depending on the current system being used.
 
