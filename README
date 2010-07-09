@@ -1,6 +1,6 @@
 OMPW provides an abstraction layer for writing Lisp libraries
-that can be used in "pure" Common Lisp, but also in the OpenMusic
-or PWGL environments.
+that can be used in "pure" Common Lisp, but also in the OpenMusic[1]
+or PWGL[2] environments.
 
 It defines a macro DEFINE-BOX that expands differently
 depending on the current system being used.
@@ -38,11 +38,12 @@ In PWGL:
 
 See the file examples.lisp for more options.
 
-The OMPW library can be loaded by using ASDF <http://www.cliki.net/asdf>
-or by simply loading load.lisp.
-
-Bug reports, comments etc. are, of course, welcome.
-
 Have fun,
   Kilian Sprotte
+
+
+Footnotes: 
+[1]  http://recherche.ircam.fr/equipes/repmus/OpenMusic/
+
+[2]  http://www.siba.fi/PWGL/
 
