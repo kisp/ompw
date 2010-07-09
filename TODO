@@ -1,0 +1,5 @@
+arch-tag: 069BC2A4-BD08-4795-AF40-BC21468B6D72
+
+* if you have specified a menu like :menu (arg :one :two :three)
+  but your arg without a default arg. what happens ?
+  maybe change the code to take the index 0

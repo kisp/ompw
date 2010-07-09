@@ -1,0 +1,48 @@
+OMPW provides an abstraction layer for writing Lisp libraries
+that can be used in "pure" Common Lisp, but also in the OpenMusic
+or PWGL environments.
+
+It defines a macro DEFINE-BOX that expands differently
+depending on the current system being used.
+
+For instance
+
+(define-box myadd ((a 1) (b 1))
+  "Add A + B."
+  (+ a b))
+
+will become:
+
+In pure Common Lisp:
+
+(progn (export 'myadd)
+       (defgeneric myadd (a b))
+       (defmethod myadd (a b) "add a + b." (+ a b)))
+
+In OM:
+
+(progn (export 'myadd)
+       (om::defmethod! myadd (a b)
+	 :doc "Add A + B."
+	 :initvals '(1 1)
+	 :icon 128
+	 (+ a b)))
+
+In PWGL:
+
+(progn (export 'myadd)
+       (system::pwgldef myadd ((a '1) (b '1))
+			"add a + b."
+			nil
+			(+ a b)))
+
+See the file examples.lisp for more options.
+
+The OMPW library can be loaded by using ASDF <http://www.cliki.net/asdf>
+or by simply loading load.lisp.
+
+Bug reports, comments etc. are, of course, welcome.
+
+Have fun,
+  Kilian Sprotte
+
