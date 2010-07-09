@@ -1,3 +1,4 @@
+;;; load file used by OM
 (let ((*default-pathname-defaults* *load-truename*))
   ;; using om::compile&load did not work
   (load (compile-file "package.lisp"))
