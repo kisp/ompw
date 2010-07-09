@@ -179,8 +179,8 @@ if there are not self-evaluating-p."
 #+om
 (defmacro define-box (name lambda-list &body body)
   (labels ((quote-for-5.1 (obj)
-	     #+ccl-5.1 (list 'quote obj)
-	     #-ccl-5.1 obj)
+	     #+(or ccl-5.1 lispworks) (list 'quote obj)
+	     #-(or ccl-5.1 lispworks) obj)
 	   (omify-symbols (tree)
 	     (cond
 	       ((null tree)
