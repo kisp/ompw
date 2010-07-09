@@ -46,13 +46,7 @@
   (force-output *query-io*)
   (parse-namestring (read-line *query-io*)))
 
-#+om
-(define-box choose-new-file-dialog (&key (prompt "Enter the path for a new file:")
-					 button-string)
-  :non-generic t
-  (ccl::choose-new-file-dialog :prompt prompt :button-string button-string))
-
-#+pwgl
+#+ (or pwgl om)
 (define-box choose-new-file-dialog (&key (prompt "Enter the path for a new file:")
 					 button-string)
   :non-generic t
@@ -72,15 +66,7 @@
 	  (format *query-io* "~&ERROR: ~A does not exist.~%" path)
 	  (choose-file-dialog :prompt prompt :button-string button-string)))))
 
-
-
-#+om
-(define-box choose-file-dialog (&key (prompt "Enter the path for an existing file:")
-				     button-string)
-  :non-generic t
-  (ccl::choose-file-dialog :prompt prompt :button-string button-string))
-
-#+pwgl
+#+ (or pwgl om)
 (define-box choose-file-dialog (&key (prompt "Enter the path for an existing file:")
 				     button-string)
   :non-generic t
