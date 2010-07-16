@@ -1,8 +1,11 @@
 ;;; load file used by OM
-(let ((*default-pathname-defaults* *load-truename*))
-  ;; using om::compile&load did not work
-  (load (compile-file "package.lisp"))
-  (load (compile-file "menu.lisp"))
-  (load (compile-file "define-box.lisp"))
-  (load (compile-file "file-dialog.lisp"))
-  (load (compile-file "pprint-define-box.lisp")))
+(flet ((load-compile (path)
+	 (if (member :om-deliver *features*)
+	     (om::compile&load (make-pathname :type nil :defaults path))
+	     (load (compile-file path)))))
+  (let ((*default-pathname-defaults* *load-truename*))
+    (load-compile "package.lisp")
+    (load-compile "menu.lisp")
+    (load-compile "define-box.lisp")
+    (load-compile "file-dialog.lisp")
+    (load-compile "pprint-define-box.lisp")))
