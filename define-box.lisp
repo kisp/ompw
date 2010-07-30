@@ -62,9 +62,9 @@
   (destructuring-bind (arg &rest values) menu
     (cons arg
 	  (loop for value in values
-	       if (consp value)
-	       collect value
-	       else collect (list value (prin1-to-string value))))))
+	     if (consp value)
+	     collect value
+	     else collect (list value (prin1-to-string value))))))
 
 (defun parse-body (body)
   "Returns a plist, where values (of possibly multiply
@@ -110,12 +110,12 @@
 
 (defun required-strip-initvals (lambda-list)
   (loop
-       for arg-tail on lambda-list
-       for arg = (car arg-tail)
-       do (when (lambda-list-keywordp arg)
-	    (return (nconc required-args arg-tail)))
-       collect (first arg) into required-args
-       finally (return required-args)))
+     for arg-tail on lambda-list
+     for arg = (car arg-tail)
+     do (when (lambda-list-keywordp arg)
+	  (return (nconc required-args arg-tail)))
+     collect (first arg) into required-args
+     finally (return required-args)))
 
 (defun strip-initvals (lambda-list)
   (mapcar #'(lambda (arg) (if (listp arg) (first arg) arg)) lambda-list))
@@ -127,9 +127,9 @@
   "Will quote all initvals (second arg) in LAMBDA-LIST,
 if there are not self-evaluating-p."
   (loop for arg in lambda-list
-       if (or (atom arg) (self-evaluating-p (second arg)))
-       collect arg
-       else collect (list (first arg) (list 'quote (second arg)))))
+     if (or (atom arg) (self-evaluating-p (second arg)))
+     collect arg
+     else collect (list (first arg) (list 'quote (second arg)))))
 
 ;;; its a good time to remember here that PARSED-BODY
 ;;; is not really a plist
@@ -167,13 +167,13 @@ if there are not self-evaluating-p."
 	 ,@(getf parsed-body :doc)
 	 ,@(getf parsed-body :declarations)
 	 ,@(loop for (arg . vals) in (getf parsed-body :menu)
-		for arg-ind = (position arg lambda-list-arg-names)
-		for def-val = (nth arg-ind lambda-list-arg-values)
-		do (unless (member def-val vals :key #'first :test #'equal)
-		     (cerror "Okay - we ignore this."
-			     "Sorry, default-value '~S' of arg '~S' is not part of its menu ~S."
-			     def-val arg (cons arg vals)))
-		collect `(assert (member ,arg ',(mapcar #'first vals))))
+	      for arg-ind = (position arg lambda-list-arg-names)
+	      for def-val = (nth arg-ind lambda-list-arg-values)
+	      do (unless (member def-val vals :key #'first :test #'equal)
+		   (cerror "Okay - we ignore this."
+			   "Sorry, default-value '~S' of arg '~S' is not part of its menu ~S."
+			   def-val arg (cons arg vals)))
+	      collect `(assert (member ,arg ',(mapcar #'first vals))))
 	 ,@(getf parsed-body :forms)))))
 
 #+om
@@ -208,16 +208,16 @@ if there are not self-evaluating-p."
 		   (list :menuins
 			 (quote-for-5.1
 			  (loop for (arg . vals) in (getf parsed-body :menu)
-			       for arg-ind = (position arg lambda-list-arg-names)
-			       for def-val = (nth arg-ind lambda-list-arg-values)
-			       do (unless (member def-val vals :key #'first :test #'equal)
-				    (cerror "Okay - we ignore this."
-					    "Sorry, default-value '~S' of arg '~S' is not part of its menu ~S."
-					    def-val arg (cons arg vals)))
-			       collect `(,arg-ind ,(loop for (value title) in vals
-							collect (if (eql value def-val)
-								    (list title value t)
-								    (list title value))))))))
+			     for arg-ind = (position arg lambda-list-arg-names)
+			     for def-val = (nth arg-ind lambda-list-arg-values)
+			     do (unless (member def-val vals :key #'first :test #'equal)
+				  (cerror "Okay - we ignore this."
+					  "Sorry, default-value '~S' of arg '~S' is not part of its menu ~S."
+					  def-val arg (cons arg vals)))
+			     collect `(,arg-ind ,(loop for (value title) in vals
+						    collect (if (eql value def-val)
+								(list title value t)
+								(list title value))))))))
 	   ,@(getf parsed-body :declarations)
 	   ,@(getf parsed-body :forms))))))
 
@@ -227,17 +227,17 @@ if there are not self-evaluating-p."
 (defmacro define-box (name lambda-list &body body)
   (labels ((lambda-list-quoted-values (lambda-list)
 	     (loop
-		  for elt in lambda-list
-		  collect (if (consp elt)
-			      (list (first elt) (list 'quote (second elt)))
-			      elt)))
+		for elt in lambda-list
+		collect (if (consp elt)
+			    (list (first elt) (list 'quote (second elt)))
+			    elt)))
 	   (lambda-list-ensure-defaults (lambda-list)
 	     (loop for arg in lambda-list
-		  if (lambda-list-keywordp arg)
-		  collect arg
-		  else if (atom arg)
-		  collect (list arg nil)
-		  else collect arg))
+		if (lambda-list-keywordp arg)
+		collect arg
+		else if (atom arg)
+		collect (list arg nil)
+		else collect arg))
 	   (menu-form (menu-spec def-value)
 	     (destructuring-bind (arg &rest items) menu-spec
 	       ;; the string is first :menu-list (("eins" 1) ("zwei" 2))
@@ -248,18 +248,18 @@ if there are not self-evaluating-p."
 	   (lambda-list (macrolet ((collect (obj)
 				     `(push ,obj res)))
 			  (loop with res
-			       with menu-specs = (getf parsed-body :menu)
-			       for arg in lambda-list
-			       do (if (lambda-list-keywordp arg)
-				      (collect arg)
-				      (let ((menu-spec (find (car (ensure-list arg)) menu-specs :key #'first)))
-					(cond
-					  ((null menu-spec)
-					   (collect arg))
-					  (t
-					   ;; second second because the def-val is quoted
-					   (collect (list (first arg) (second arg) (menu-form menu-spec (second (second arg)))))))))
-			       finally (return (nreverse res)))))
+			     with menu-specs = (getf parsed-body :menu)
+			     for arg in lambda-list
+			     do (if (lambda-list-keywordp arg)
+				    (collect arg)
+				    (let ((menu-spec (find (car (ensure-list arg)) menu-specs :key #'first)))
+				      (cond
+					((null menu-spec)
+					 (collect arg))
+					(t
+					 ;; second second because the def-val is quoted
+					 (collect (list (first arg) (second arg) (menu-form menu-spec (second (second arg)))))))))
+			     finally (return (nreverse res)))))
 	   (outputs (getf parsed-body :outputs (list 1))))
       (when (and (> (first outputs) 1) (getf parsed-body :class))
 	(error "In define-box ~s: Currently, you cannot specify a :class together with more than one :outputs." name))
@@ -267,11 +267,11 @@ if there are not self-evaluating-p."
       `(progn
 	 ,@(export-and-menu-forms name parsed-body)
 	 (ccl::pwgldef ,name ,lambda-list
-		       ,(if (getf parsed-body :doc)
-			    (first (getf parsed-body :doc))
-			    "no doc")
-		       (,@(when (not (= 1 (first outputs)))
-				`(:class 'ccl::PWGL-values-box :outputs ,(first outputs)))
-			  ,@(when (getf parsed-body :class) `(:class ',(first (getf parsed-body :class)))))
-		       ,@(getf parsed-body :declarations)
-		       ,@(getf parsed-body :forms))))))
+	     ,(if (getf parsed-body :doc)
+		  (first (getf parsed-body :doc))
+		  "no doc")
+	     (,@(when (not (= 1 (first outputs)))
+		      `(:class 'ccl::PWGL-values-box :outputs ,(first outputs)))
+		,@(when (getf parsed-body :class) `(:class ',(first (getf parsed-body :class)))))
+	   ,@(getf parsed-body :declarations)
+	   ,@(getf parsed-body :forms))))))

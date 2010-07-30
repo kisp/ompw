@@ -51,12 +51,12 @@
 		  (values first rest))
 		 ;; okay its a normal symbol
 		 (t (loop
-			 for items-tail on menu-items
-			 for item = (car items-tail)
-			 while (and (atom item)
-				    (not (eq :menu-separator item)))
-			 collect item into items
-			 finally (return (values items items-tail)))))))
+		       for items-tail on menu-items
+		       for item = (car items-tail)
+		       while (and (atom item)
+				  (not (eq :menu-separator item)))
+		       collect item into items
+		       finally (return (values items items-tail)))))))
 	   (split-menu-items (menu-items)
 	     (multiple-value-bind (first rest)
 		 (collect-until-change menu-items)
@@ -86,14 +86,14 @@
 (defun menu-spec2native (menu-spec)
   (labels ((symbols+sub-menus (items)
 	     (loop for item in items
-		  if (listp item)
-		  collect (rec item) into sub-menus
-		  else collect (cond
-				 ((eql item :menu-separator)
-				  '-)
-				 (t item))
-		  into symbols
-		  finally (return (values symbols sub-menus))))
+		if (listp item)
+		collect (rec item) into sub-menus
+		else collect (cond
+			       ((eql item :menu-separator)
+				'-)
+			       (t item))
+		into symbols
+		finally (return (values symbols sub-menus))))
 	   (rec (menu-spec)
 	     (destructuring-bind (name . items)
 		 menu-spec
