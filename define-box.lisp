@@ -144,7 +144,7 @@ if there are not self-evaluating-p."
   (when (export-option-present parsed-body)
     `((export ',name)
       ,@(when (main-menu-option-present parsed-body)
-	      `((eval-when (:load-toplevel)
+	      `((eval-when (:load-toplevel :execute)
 		  (menu-add-item *menu* ',name)))))))
 
 ;;; TODO doc should be for the defgeneric, not the defmethod

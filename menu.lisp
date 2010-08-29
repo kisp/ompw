@@ -157,7 +157,7 @@ You should give your menu the same name as your library."
   (when (keywordp name) (warn "It is not recommended to use a keyword for a menu name.
 Better use a normal symbol instead."))
   (unless print-name (setq print-name (string-capitalize (string name))))
-  `(eval-when (:load-toplevel)
+  `(eval-when (:load-toplevel :execute)
      ,@(when in `((assert (get-menu ',in))))
      (let ((new-menu (setf (get-menu ',name) (make-menu :name ',name :print-name ,print-name :container ',in))))
        (declare (ignorable new-menu))
@@ -166,12 +166,12 @@ Better use a normal symbol instead."))
 
 (defmacro in-menu (name)
   (check-type name symbol)
-  `(eval-when (:load-toplevel)
+  `(eval-when (:load-toplevel :execute)
      (setq *menu* (get-menu ',name t))))
 
 (defmacro menu-separator (&key in)
   (check-type in symbol)
-  `(eval-when (:load-toplevel)
+  `(eval-when (:load-toplevel :execute)
      (menu-add-item
       ,(if in `(get-menu ',in t) '*menu*)
       :menu-separator)))
@@ -189,11 +189,11 @@ Better use a normal symbol instead."))
 
 (defmacro install-menu (name)
   (check-type name symbol)
-  `(eval-when (:load-toplevel)
+  `(eval-when (:load-toplevel :execute)
      (install-menu* ',name)))
 
 (defmacro menu-add-symbol (symbol)
   (check-type symbol symbol)
-  `(eval-when (:load-toplevel)
+  `(eval-when (:load-toplevel :execute)
      (export ',symbol)
      (menu-add-item *menu* ',symbol)))
