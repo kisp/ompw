@@ -189,7 +189,7 @@ Better use a normal symbol instead."))
 
 (defmacro install-menu (name)
   (check-type name symbol)
-  `(eval-when (:load-toplevel)
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
      (install-menu* ',name)))
 
 (defmacro menu-add-symbol (symbol)
