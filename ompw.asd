@@ -30,7 +30,7 @@
 
 (defsystem :ompw
   :author "Kilian Sprotte"
-  :version "0.3.0"
+  :version "0.3.1"
   :serial t
   :components
   ((:static-file "README")
